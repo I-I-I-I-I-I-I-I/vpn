@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
     }
 
     // Force socket to attach to port 8080
-    if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSE_UNICASTPORT, &opt, sizeof(opt)))
+    if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)))
     {
         perror("setsockopt");
         exit(EXIT_FAILURE);
@@ -49,8 +49,6 @@ int main(int argc, char *argv[])
     address.sin_family = AF_INET;
     address.sin_addr.s_addr = INADDR_ANY;
     address.sin_port = htons(PORT);
-
-    print(address.sin_port);
 
     if (bind(server_fd, (struct sockaddr *)&address, sizeof(address)) < 0)
     {
